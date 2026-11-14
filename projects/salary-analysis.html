@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-SG" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salary Variation Analysis Across Job Roles &amp; Experience Levels | Noella Bunag</title>
+  <meta name="description" content="Case study: cleaning and analysing around 150,000 job postings in Python to compare salary patterns across roles and experience levels.">
+  <meta name="author" content="Noella Bunag">
+  <meta name="theme-color" content="#0B1220">
+  <link rel="canonical" href="https://noellabunag.github.io/projects/salary-analysis.html">
+
+  <!-- Open Graph / social sharing preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Noella Bunag — Portfolio">
+  <meta property="og:title" content="Salary Variation Analysis Across Job Roles &amp; Experience Levels | Noella Bunag">
+  <meta property="og:description" content="Case study: cleaning and analysing around 150,000 job postings in Python to compare salary patterns across roles and experience levels.">
+  <meta property="og:url" content="https://noellabunag.github.io/projects/salary-analysis.html">
+  <meta property="og:image" content="https://noellabunag.github.io/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+
+  <!-- Fonts: Space Grotesk (headings), Inter (body), JetBrains Mono (small labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <!-- Marks that JavaScript is available, so scroll-reveal can safely hide content first -->
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body id="top">
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="nav on-dark">
+    <div class="container nav__inner">
+      <a class="logo" href="../index.html" aria-label="Noella Bunag — home">NOELLA<span>.</span></a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+        <li><a class="nav__link" href="../index.html" data-nav-link="home">Home</a></li>
+        <li><a class="nav__link" href="../index.html#about" data-nav-link="about">About</a></li>
+        <li><a class="nav__link" href="../index.html#skills" data-nav-link="skills">Skills</a></li>
+        <li><a class="nav__link" href="../index.html#projects" data-nav-link="projects">Projects</a></li>
+        <li><a class="nav__link" href="../index.html#experience" data-nav-link="experience">Experience</a></li>
+        <li><a class="nav__link" href="../index.html#contact" data-nav-link="contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav__right">
+        <a class="btn btn--sm nav__resume" data-resume="view" href="mailto:noellabunag.25@ichat.sp.edu.sg?subject=Resume%20request%20%E2%80%94%20Noella%20Bunag"><span data-resume-label>Request Resume</span><svg class="icon icon--move-xy" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="nav__toggle-box" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu (opened by the hamburger button) -->
+  <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" role="dialog">
+    <ul class="mobile-menu__links">
+      <li><a href="../index.html" data-nav-link="home">Home<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#about" data-nav-link="about">About<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#skills" data-nav-link="skills">Skills<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#projects" data-nav-link="projects">Projects<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#experience" data-nav-link="experience">Experience<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#contact" data-nav-link="contact">Contact<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+    </ul>
+    <div class="mobile-menu__footer">
+      <a class="btn btn--outline" data-resume="view" href="mailto:noellabunag.25@ichat.sp.edu.sg?subject=Resume%20request%20%E2%80%94%20Noella%20Bunag"><span data-resume-label>Request Resume</span><svg class="icon icon--move-xy" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+      <div class="social-links">
+        <a class="social-link" href="https://github.com/noellabunag" target="_blank" rel="noopener" aria-label="GitHub profile (opens in a new tab)"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
+        <a class="social-link" href="https://www.linkedin.com/in/noellabunag" target="_blank" rel="noopener" aria-label="LinkedIn profile (opens in a new tab)"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="social-link" href="mailto:noellabunag.25@ichat.sp.edu.sg" aria-label="Email Noella"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- ============================================================
+         CASE STUDY: salary-analysis
+         Purple "placeholder" notes (class="ph") are hidden on the live site.
+         Open this page with ?draft at the end of the URL to see them.
+         Search this file for "[ADD" and "[CONFIRM" to find every one.
+         ============================================================ -->
+    <header class="cs-hero on-dark">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container">
+        <a class="back-link hero-in hero-in--fade" style="--i:0" href="../index.html#projects"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Back to Projects</a>
+        <p class="eyebrow hero-in hero-in--fade" style="--i:0">DATA ANALYTICS</p>
+        <h1 class="hero-in" style="--i:1">Salary Variation Analysis Across Job Roles &amp; Experience Levels</h1>
+        <p class="cs-hero__overview hero-in hero-in--fade" style="--i:2">Analysed a large collection of job postings to investigate salary patterns across different roles and experience levels.</p>
+        <div class="hero-in hero-in--fade" style="--i:3">
+          <h2 class="sr-only">Technologies used</h2>
+          <ul class="tag-list"><li class="tag">Python</li><li class="tag">Pandas</li><li class="tag">Matplotlib</li><li class="tag">Data Cleaning</li></ul>
+          <dl class="cs-meta"><div><dt>PROJECT TYPE</dt><dd>Academic project</dd></div><div><dt>INSTITUTION</dt><dd>Singapore Polytechnic</dd></div><div><dt>SCALE</dt><dd>~150,000 job postings</dd></div><div><dt>FOCUS</dt><dd>Data cleaning &amp; exploratory analysis</dd></div></dl>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <figure class="cs-cover hero-in" style="--i:4">
+        <!-- [ADD ACTUAL PROJECT SCREENSHOT] Replace this illustrative cover with a real project image when you have one. -->
+        <div class="cs-cover__frame"><img src="../assets/images/thumbs/salary-analysis.svg" width="800" height="450" alt="Illustrative graphic: two overlapping salary distribution curves for entry-level and senior roles"></div>
+        <figcaption>Illustrative graphic only &mdash; not a chart of the project data.</figcaption>
+      </figure>
+
+      <div class="cs-layout">
+        <nav class="cs-toc" aria-label="On this page">
+          <p class="cs-toc__title">ON THIS PAGE</p>
+          <ol><li><a href="#objective">Objective</a></li><li><a href="#dataset">Dataset</a></li><li><a href="#cleaning">Data Cleaning</a></li><li><a href="#features">Feature Engineering</a></li><li><a href="#eda">Exploratory Analysis</a></li><li><a href="#visuals">Visualisations</a></li><li><a href="#findings">Findings</a></li><li><a href="#limitations">Limitations</a></li><li><a href="#lessons">Lessons Learned</a></li></ol>
+        </nav>
+        <article class="cs-article">
+          <section class="cs-section" id="objective" aria-labelledby="objective-h">
+            <p class="cs-section__num">01</p>
+            <h2 id="objective-h">Objective</h2>
+            <p>The aim of this project was to understand how advertised salaries vary across job roles and experience levels, using a large collection of job postings.</p><div class="stat-row"><div class="stat"><strong>~150,000</strong><span>job postings analysed</span></div><div class="stat"><strong>5</strong><span>datasets combined</span></div><div class="stat"><strong>~8,000</strong><span>duplicate records removed</span></div></div>
+          </section>
+          <section class="cs-section" id="dataset" aria-labelledby="dataset-h">
+            <p class="cs-section__num">02</p>
+            <h2 id="dataset-h">Dataset</h2>
+            <p>The analysis combined five datasets of job postings into a single collection of approximately 150,000 records. The data is a historical collection of postings, not a live feed of the job market.</p><div class="ph" role="note"><strong>[ADD DATA SOURCE DETAILS]</strong> Name the five datasets, where they came from, and the period they cover.</div>
+          </section>
+          <section class="cs-section" id="cleaning" aria-labelledby="cleaning-h">
+            <p class="cs-section__num">03</p>
+            <h2 id="cleaning-h">Data Cleaning</h2>
+            <p>A large part of this project was preparing the data:</p><ul class="bullet-list"><li>Combined five separate datasets into one.</li><li>Removed approximately 8,000 duplicate records.</li><li>Standardised salary information so that postings could be compared on the same basis.</li><li>Standardised experience-level labels into consistent categories.</li></ul><div class="ph" role="note"><strong>[ADD VERIFIED CODE EXAMPLE]</strong> Add a short, real excerpt of your Pandas cleaning code. Save the image in <code>assets/images/projects/</code> and replace this box with: <code>&lt;figure class="cs-figure"&gt;&lt;div class="cs-figure__frame"&gt;&lt;img src="../assets/images/projects/FILE.png" alt="DESCRIBE THE IMAGE" loading="lazy"&gt;&lt;/div&gt;&lt;figcaption&gt;CAPTION&lt;/figcaption&gt;&lt;/figure&gt;</code></div>
+          </section>
+          <section class="cs-section" id="features" aria-labelledby="features-h">
+            <p class="cs-section__num">04</p>
+            <h2 id="features-h">Feature Engineering</h2>
+            <p>Standardising the salary and experience-level fields produced consistent variables that could be grouped and compared across roles.</p><div class="ph" role="note"><strong>[ADD VERIFIED DETAILS]</strong> Describe any new columns you created (for example a unified salary figure or grouped job-role categories).</div>
+          </section>
+          <section class="cs-section" id="eda" aria-labelledby="eda-h">
+            <p class="cs-section__num">05</p>
+            <h2 id="eda-h">Exploratory Analysis</h2>
+            <p>With a clean dataset, the analysis explored how salary ranges differ between roles and between experience levels, looking at the spread of salaries as well as typical values.</p>
+          </section>
+          <section class="cs-section" id="visuals" aria-labelledby="visuals-h">
+            <p class="cs-section__num">06</p>
+            <h2 id="visuals-h">Visualisations</h2>
+            <p>Multiple statistical visualisations were developed with Matplotlib to show salary distributions and compare groups.</p><div class="ph" role="note"><strong>[ADD ACTUAL PROJECT SCREENSHOT]</strong> Add 2&ndash;3 real charts, each with a one-line caption. Save the image in <code>assets/images/projects/</code> and replace this box with: <code>&lt;figure class="cs-figure"&gt;&lt;div class="cs-figure__frame"&gt;&lt;img src="../assets/images/projects/FILE.png" alt="DESCRIBE THE IMAGE" loading="lazy"&gt;&lt;/div&gt;&lt;figcaption&gt;CAPTION&lt;/figcaption&gt;&lt;/figure&gt;</code></div>
+          </section>
+          <section class="cs-section" id="findings" aria-labelledby="findings-h">
+            <p class="cs-section__num">07</p>
+            <h2 id="findings-h">Findings</h2>
+            <p>The analysis found notable differences between senior and entry-level salary ranges.</p><div class="ph" role="note"><strong>[ADD VERIFIED FINDINGS]</strong> Add the specific figures or comparisons from your report (for example median salaries by level).</div>
+          </section>
+          <section class="cs-section" id="limitations" aria-labelledby="limitations-h">
+            <p class="cs-section__num">08</p>
+            <h2 id="limitations-h">Limitations</h2>
+            <ul class="bullet-list"><li>The dataset is a historical collection of job postings, so it does not describe the current job market.</li><li>Postings show advertised salaries, which may differ from what people are actually paid.</li><li>Results depend on how salary and experience-level information was standardised across the five sources.</li></ul>
+          </section>
+          <section class="cs-section ph" id="role" aria-labelledby="role-h">
+            <h2 id="role-h">My Role (draft only)</h2>
+            <div  role="note"><strong>[CONFIRM INDIVIDUAL CONTRIBUTION]</strong> State whether this was an individual or group project and which parts were yours. This section is hidden on the live site until you replace this note with real text.</div>
+          </section>
+          <section class="cs-section" id="lessons" aria-labelledby="lessons-h">
+            <p class="cs-section__num">09</p>
+            <h2 id="lessons-h">Lessons Learned</h2>
+            <ul class="bullet-list"><li><strong>Large datasets hide small problems.</strong> Duplicates and inconsistent labels only became visible once the five sources were combined.</li><li><strong>Standardise before comparing.</strong> Salary figures meant little until they were on the same basis.</li><li><strong>State the limits.</strong> Being clear about what the data cannot show is part of the analysis.</li></ul><div class="ph" role="note"><strong>[REVIEW KEY LEARNINGS]</strong> These are drafted for you. Rewrite them in your own words so they reflect what you really took away.</div>
+          </section>
+        </article>
+      </div>
+    </div>
+
+    <aside class="cs-next" aria-label="More projects">
+      <div class="container cs-next__inner">
+        <div>
+          <p class="cs-next__label">NEXT CASE STUDY</p>
+          <a class="cs-next__title" href="library-data-warehouse.html">End-to-End Data Engineering: Library Data Warehouse &amp; Business Analytics<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+        <a class="btn btn--outline" href="../index.html#projects"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Back to Portfolio</a>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer on-dark">
+    <div class="container">
+      <div class="footer__top">
+        <div>
+          <a class="logo" href="../index.html" aria-label="Noella Bunag — home">NOELLA<span>.</span></a>
+          <p class="footer__tagline">Learning, building, and growing through data.</p>
+        </div>
+        <ul class="footer__links">
+          <li><a href="https://www.linkedin.com/in/noellabunag" target="_blank" rel="noopener">LinkedIn<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg><span class="sr-only">(opens in a new tab)</span></a></li>
+          <li><a href="https://github.com/noellabunag" target="_blank" rel="noopener">GitHub<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg><span class="sr-only">(opens in a new tab)</span></a></li>
+          <li><a href="mailto:noellabunag.25@ichat.sp.edu.sg">Email</a></li>
+          <li><a href="#top" data-to-top>Back to top<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></a></li>
+        </ul>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; <span data-year>2026</span> Noella Bunag. All rights reserved.</p>
+        <p>Singapore</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" type="button" data-to-top aria-label="Back to top"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></button>
+  <div class="draft-banner" role="status">Draft mode — purple boxes are notes only you can see</div>
+
+  <script src="../js/main.js" defer></script>
+</body>
+</html>

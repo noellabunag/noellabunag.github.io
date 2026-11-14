@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-SG" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>End-to-End Data Engineering: Library Data Warehouse &amp; Business Analytics | Noella Bunag</title>
+  <meta name="description" content="Case study: a star-schema data warehouse and ETL process for library loan data, built in MySQL as a Singapore Polytechnic group project.">
+  <meta name="author" content="Noella Bunag">
+  <meta name="theme-color" content="#0B1220">
+  <link rel="canonical" href="https://noellabunag.github.io/projects/library-data-warehouse.html">
+
+  <!-- Open Graph / social sharing preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Noella Bunag — Portfolio">
+  <meta property="og:title" content="End-to-End Data Engineering: Library Data Warehouse &amp; Business Analytics | Noella Bunag">
+  <meta property="og:description" content="Case study: a star-schema data warehouse and ETL process for library loan data, built in MySQL as a Singapore Polytechnic group project.">
+  <meta property="og:url" content="https://noellabunag.github.io/projects/library-data-warehouse.html">
+  <meta property="og:image" content="https://noellabunag.github.io/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+
+  <!-- Fonts: Space Grotesk (headings), Inter (body), JetBrains Mono (small labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <!-- Marks that JavaScript is available, so scroll-reveal can safely hide content first -->
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body id="top">
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="nav on-dark">
+    <div class="container nav__inner">
+      <a class="logo" href="../index.html" aria-label="Noella Bunag — home">NOELLA<span>.</span></a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+        <li><a class="nav__link" href="../index.html" data-nav-link="home">Home</a></li>
+        <li><a class="nav__link" href="../index.html#about" data-nav-link="about">About</a></li>
+        <li><a class="nav__link" href="../index.html#skills" data-nav-link="skills">Skills</a></li>
+        <li><a class="nav__link" href="../index.html#projects" data-nav-link="projects">Projects</a></li>
+        <li><a class="nav__link" href="../index.html#experience" data-nav-link="experience">Experience</a></li>
+        <li><a class="nav__link" href="../index.html#contact" data-nav-link="contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav__right">
+        <a class="btn btn--sm nav__resume" data-resume="view" href="mailto:noellabunag.25@ichat.sp.edu.sg?subject=Resume%20request%20%E2%80%94%20Noella%20Bunag"><span data-resume-label>Request Resume</span><svg class="icon icon--move-xy" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="nav__toggle-box" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu (opened by the hamburger button) -->
+  <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" role="dialog">
+    <ul class="mobile-menu__links">
+      <li><a href="../index.html" data-nav-link="home">Home<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#about" data-nav-link="about">About<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#skills" data-nav-link="skills">Skills<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#projects" data-nav-link="projects">Projects<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#experience" data-nav-link="experience">Experience<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#contact" data-nav-link="contact">Contact<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+    </ul>
+    <div class="mobile-menu__footer">
+      <a class="btn btn--outline" data-resume="view" href="mailto:noellabunag.25@ichat.sp.edu.sg?subject=Resume%20request%20%E2%80%94%20Noella%20Bunag"><span data-resume-label>Request Resume</span><svg class="icon icon--move-xy" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+      <div class="social-links">
+        <a class="social-link" href="https://github.com/noellabunag" target="_blank" rel="noopener" aria-label="GitHub profile (opens in a new tab)"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
+        <a class="social-link" href="https://www.linkedin.com/in/noellabunag" target="_blank" rel="noopener" aria-label="LinkedIn profile (opens in a new tab)"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="social-link" href="mailto:noellabunag.25@ichat.sp.edu.sg" aria-label="Email Noella"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- ============================================================
+         CASE STUDY: library-data-warehouse
+         Purple "placeholder" notes (class="ph") are hidden on the live site.
+         Open this page with ?draft at the end of the URL to see them.
+         Search this file for "[ADD" and "[CONFIRM" to find every one.
+         ============================================================ -->
+    <header class="cs-hero on-dark">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container">
+        <a class="back-link hero-in hero-in--fade" style="--i:0" href="../index.html#projects"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Back to Projects</a>
+        <p class="eyebrow hero-in hero-in--fade" style="--i:0">DATA ENGINEERING</p>
+        <h1 class="hero-in" style="--i:1">End-to-End Data Engineering: Library Data Warehouse &amp; Business Analytics</h1>
+        <p class="cs-hero__overview hero-in hero-in--fade" style="--i:2">Designed and implemented a data warehousing solution to transform library transaction records into structured datasets for business analysis and operational decision-making.</p>
+        <div class="hero-in hero-in--fade" style="--i:3">
+          <h2 class="sr-only">Technologies used</h2>
+          <ul class="tag-list"><li class="tag">MySQL</li><li class="tag">SQL</li><li class="tag">ETL</li><li class="tag">Data Warehousing</li><li class="tag">Star Schema</li></ul>
+          <dl class="cs-meta"><div><dt>PROJECT TYPE</dt><dd>Academic group project</dd></div><div><dt>INSTITUTION</dt><dd>Singapore Polytechnic</dd></div><div><dt>MY ROLE</dt><dd>Team member</dd></div><div><dt>FOCUS</dt><dd>Data modelling, ETL &amp; SQL analysis</dd></div></dl>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <figure class="cs-cover hero-in" style="--i:4">
+        <!-- [ADD ACTUAL PROJECT SCREENSHOT] Replace this illustrative cover with a real project image when you have one. -->
+        <div class="cs-cover__frame"><img src="../assets/images/thumbs/library-data-warehouse.svg" width="800" height="450" alt="Illustrative diagram: source database, ETL pipeline, star-schema data warehouse and analytics"></div>
+        <figcaption>Illustrative overview of the project flow: source database &rarr; ETL pipeline &rarr; data warehouse &rarr; analytics.</figcaption>
+      </figure>
+
+      <div class="cs-layout">
+        <nav class="cs-toc" aria-label="On this page">
+          <p class="cs-toc__title">ON THIS PAGE</p>
+          <ol><li><a href="#overview">Overview</a></li><li><a href="#problem">Problem Statement</a></li><li><a href="#data">Data Sources</a></li><li><a href="#design">Database Design</a></li><li><a href="#etl">ETL Workflow</a></li><li><a href="#quality">Data Quality Checks</a></li><li><a href="#analysis">SQL Analysis</a></li><li><a href="#results">Results</a></li><li><a href="#role">Team &amp; My Role</a></li><li><a href="#learnings">Key Learnings</a></li></ol>
+        </nav>
+        <article class="cs-article">
+          <section class="cs-section" id="overview" aria-labelledby="overview-h">
+            <p class="cs-section__num">01</p>
+            <h2 id="overview-h">Overview</h2>
+            <p>This Singapore Polytechnic group project took a library&rsquo;s day-to-day transaction records and turned them into a data warehouse built for analysis.</p>
+<p>As a team, we cleaned the source data, designed an OLTP database, modelled a star-schema data warehouse, moved the transaction data across with an ETL process, and then used SQL to answer business questions about how the library is used.</p><div class="stat-row"><div class="stat"><strong>12,343</strong><span>completed loan transactions processed</span></div><div class="stat"><strong>1</strong><span>fact table</span></div><div class="stat"><strong>4</strong><span>dimension tables</span></div></div>
+          </section>
+          <section class="cs-section" id="problem" aria-labelledby="problem-h">
+            <p class="cs-section__num">02</p>
+            <h2 id="problem-h">Problem Statement</h2>
+            <p>Operational databases are designed to record transactions reliably, one at a time. That structure is not well suited to answering broader questions such as how borrowing changes over time, which members are most active, or where late returns are concentrated.</p>
+<p>The aim of the project was to restructure the library&rsquo;s transaction records so that these kinds of questions could be answered clearly and consistently, in support of operational decision-making.</p>
+          </section>
+          <section class="cs-section" id="data" aria-labelledby="data-h">
+            <p class="cs-section__num">03</p>
+            <h2 id="data-h">Data Sources</h2>
+            <p>The project worked with library transaction records, centred on loan transactions. The warehouse was loaded with <strong>12,343 completed loan transactions</strong>.</p><div class="ph" role="note"><strong>[ADD DATA SOURCE DETAILS]</strong> Describe the source dataset: where it came from, which tables it contained, and the original record counts.</div>
+          </section>
+          <section class="cs-section" id="design" aria-labelledby="design-h">
+            <p class="cs-section__num">04</p>
+            <h2 id="design-h">Database Design</h2>
+            <p>The design work happened in two stages:</p><ul class="bullet-list"><li><strong>OLTP database</strong> &mdash; a relational design for storing the cleaned transactional data.</li><li><strong>Star-schema data warehouse</strong> &mdash; an analytical design with one fact table and four dimension tables.</li></ul><p>In a star schema, the fact table holds the events being measured, and each dimension table describes the context around those events. Keeping the two apart makes analytical queries simpler to write and easier to read.</p><figure class="cs-figure"><div class="cs-figure__frame cs-figure__frame--dark">
+<svg viewBox="0 0 720 340" role="img" aria-label="Simplified star schema: one central fact table connected to four dimension tables">
+<rect width="720" height="340" fill="#0B1220"/>
+<g stroke="#64748B" stroke-width="1.5"><path d="M360 170 170 80"/><path d="M360 170 550 80"/><path d="M360 170 170 260"/><path d="M360 170 550 260"/></g>
+<g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" letter-spacing="1.2" text-anchor="middle">
+<g fill="#111C2E" stroke="#A78BFA"><rect x="90" y="52" width="160" height="56" rx="10"/><rect x="470" y="52" width="160" height="56" rx="10"/><rect x="90" y="232" width="160" height="56" rx="10"/><rect x="470" y="232" width="160" height="56" rx="10"/></g>
+<g fill="#A78BFA"><text x="170" y="85">DIMENSION 1</text><text x="550" y="85">DIMENSION 2</text><text x="170" y="265">DIMENSION 3</text><text x="550" y="265">DIMENSION 4</text></g>
+<rect x="270" y="134" width="180" height="72" rx="12" fill="#22C7B8"/><text x="360" y="175" fill="#0B1220" font-weight="700">FACT TABLE</text>
+</g></svg></div><figcaption>Simplified view of the warehouse structure: one fact table surrounded by four dimension tables.</figcaption></figure><div class="ph" role="note"><strong>[ADD ACTUAL PROJECT SCREENSHOT]</strong> Add the real ERD / star-schema diagram and name the four dimension tables. Save the image in <code>assets/images/projects/</code> and replace this box with: <code>&lt;figure class="cs-figure"&gt;&lt;div class="cs-figure__frame"&gt;&lt;img src="../assets/images/projects/FILE.png" alt="DESCRIBE THE IMAGE" loading="lazy"&gt;&lt;/div&gt;&lt;figcaption&gt;CAPTION&lt;/figcaption&gt;&lt;/figure&gt;</code></div>
+          </section>
+          <section class="cs-section" id="etl" aria-labelledby="etl-h">
+            <p class="cs-section__num">05</p>
+            <h2 id="etl-h">ETL Workflow</h2>
+            <p>An ETL (extract, transform, load) process moved the data from the OLTP database into the warehouse.</p><ol class="pipeline"><li class="pipeline__step"><small>01 · EXTRACT</small><strong>Read from OLTP</strong><span>Transaction records taken from the operational database.</span></li><li class="pipeline__step"><small>02 · TRANSFORM</small><strong>Clean &amp; reshape</strong><span>Data prepared to fit the fact and dimension tables.</span></li><li class="pipeline__step"><small>03 · LOAD</small><strong>Fill the warehouse</strong><span>12,343 completed loans loaded into the star schema.</span></li></ol><div class="ph" role="note"><strong>[ADD VERIFIED CODE EXAMPLE]</strong> Add a short, real excerpt of the ETL SQL (or a screenshot of it) from your project files. Save the image in <code>assets/images/projects/</code> and replace this box with: <code>&lt;figure class="cs-figure"&gt;&lt;div class="cs-figure__frame"&gt;&lt;img src="../assets/images/projects/FILE.png" alt="DESCRIBE THE IMAGE" loading="lazy"&gt;&lt;/div&gt;&lt;figcaption&gt;CAPTION&lt;/figcaption&gt;&lt;/figure&gt;</code></div>
+          </section>
+          <section class="cs-section" id="quality" aria-labelledby="quality-h">
+            <p class="cs-section__num">06</p>
+            <h2 id="quality-h">Data Quality Checks</h2>
+            <p>The source data was cleaned before it was loaded, so that the warehouse held consistent records. The ETL processed <em>completed</em> loan transactions.</p><div class="ph" role="note"><strong>[ADD VERIFIED DETAILS]</strong> List the specific cleaning steps and checks your team actually carried out (for example how duplicates, missing values or inconsistent formats were handled, and how row counts were verified after loading).</div>
+          </section>
+          <section class="cs-section" id="analysis" aria-labelledby="analysis-h">
+            <p class="cs-section__num">07</p>
+            <h2 id="analysis-h">SQL Analysis</h2>
+            <p>With the warehouse in place, we wrote SQL queries against the star schema to explore four areas of library operations:</p><ul class="bullet-list"><li>Borrowing activity</li><li>Membership trends and member activity</li><li>Staff workload</li><li>Late-return patterns</li></ul><div class="ph" role="note"><strong>[ADD VERIFIED SQL QUERY]</strong> Add one or two real queries from the project with a screenshot of their output. Save the image in <code>assets/images/projects/</code> and replace this box with: <code>&lt;figure class="cs-figure"&gt;&lt;div class="cs-figure__frame"&gt;&lt;img src="../assets/images/projects/FILE.png" alt="DESCRIBE THE IMAGE" loading="lazy"&gt;&lt;/div&gt;&lt;figcaption&gt;CAPTION&lt;/figcaption&gt;&lt;/figure&gt;</code></div>
+          </section>
+          <section class="cs-section" id="results" aria-labelledby="results-h">
+            <p class="cs-section__num">08</p>
+            <h2 id="results-h">Results</h2>
+            <ul class="bullet-list"><li>Designed a star-schema data warehouse to support library analytics.</li><li>Implemented ETL processing for 12,343 completed loan transactions.</li><li>Analysed borrowing behaviour, member activity, and late-return patterns using SQL.</li></ul><div class="ph" role="note"><strong>[ADD VERIFIED FINDINGS]</strong> Add 2&ndash;3 specific findings from the SQL analysis, taken from your project report.</div>
+          </section>
+          <section class="cs-section" id="role" aria-labelledby="role-h">
+            <p class="cs-section__num">09</p>
+            <h2 id="role-h">Team &amp; My Role</h2>
+            <p>This was a group project, and the results above reflect the work of the whole team. I collaborated on the warehouse design, the ETL process and the SQL analysis.</p><div class="ph" role="note"><strong>[CONFIRM INDIVIDUAL CONTRIBUTION]</strong> State exactly which parts you personally built (for example specific tables, ETL scripts or queries).</div>
+          </section>
+          <section class="cs-section" id="learnings" aria-labelledby="learnings-h">
+            <p class="cs-section__num">10</p>
+            <h2 id="learnings-h">Key Learnings</h2>
+            <ul class="bullet-list"><li><strong>Start from the questions.</strong> Knowing what the library wanted to find out made it much clearer what belonged in the fact table and what belonged in a dimension.</li><li><strong>Most of ETL is data quality.</strong> Getting the data clean and consistent took more care than moving it.</li><li><strong>Structure changes how you query.</strong> Analysis that would be awkward against transactional tables became much more direct against a star schema.</li></ul><div class="ph" role="note"><strong>[REVIEW KEY LEARNINGS]</strong> These are drafted for you. Rewrite them in your own words so they reflect what you really took away.</div>
+          </section>
+        </article>
+      </div>
+    </div>
+
+    <aside class="cs-next" aria-label="More projects">
+      <div class="container cs-next__inner">
+        <div>
+          <p class="cs-next__label">NEXT CASE STUDY</p>
+          <a class="cs-next__title" href="graduate-employment-analysis.html">Graduate Employment Outcomes &amp; Work-Life Balance Analysis<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+        <a class="btn btn--outline" href="../index.html#projects"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Back to Portfolio</a>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer on-dark">
+    <div class="container">
+      <div class="footer__top">
+        <div>
+          <a class="logo" href="../index.html" aria-label="Noella Bunag — home">NOELLA<span>.</span></a>
+          <p class="footer__tagline">Learning, building, and growing through data.</p>
+        </div>
+        <ul class="footer__links">
+          <li><a href="https://www.linkedin.com/in/noellabunag" target="_blank" rel="noopener">LinkedIn<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg><span class="sr-only">(opens in a new tab)</span></a></li>
+          <li><a href="https://github.com/noellabunag" target="_blank" rel="noopener">GitHub<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg><span class="sr-only">(opens in a new tab)</span></a></li>
+          <li><a href="mailto:noellabunag.25@ichat.sp.edu.sg">Email</a></li>
+          <li><a href="#top" data-to-top>Back to top<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></a></li>
+        </ul>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; <span data-year>2026</span> Noella Bunag. All rights reserved.</p>
+        <p>Singapore</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" type="button" data-to-top aria-label="Back to top"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></button>
+  <div class="draft-banner" role="status">Draft mode — purple boxes are notes only you can see</div>
+
+  <script src="../js/main.js" defer></script>
+</body>
+</html>
