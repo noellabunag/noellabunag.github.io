@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-SG" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catch &amp; Go: A Data Story for Choosing a Pilot Location | Noella Bunag</title>
+  <meta name="description" content="Case study: a Power BI data story that uses survey data from 200 Singapore residents to recommend a pilot location for a location-based mobile game.">
+  <meta name="author" content="Noella Bunag">
+  <meta name="theme-color" content="#0B1220">
+  <link rel="canonical" href="https://noellabunag.github.io/projects/catch-and-go.html">
+
+  <!-- Open Graph / social sharing preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Noella Bunag — Portfolio">
+  <meta property="og:title" content="Catch &amp; Go: A Data Story for Choosing a Pilot Location | Noella Bunag">
+  <meta property="og:description" content="Case study: a Power BI data story that uses survey data from 200 Singapore residents to recommend a pilot location for a location-based mobile game.">
+  <meta property="og:url" content="https://noellabunag.github.io/projects/catch-and-go.html">
+  <meta property="og:image" content="https://noellabunag.github.io/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+
+  <!-- Fonts: Space Grotesk (headings), Inter (body), JetBrains Mono (small labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <!-- Marks that JavaScript is available, so scroll-reveal can safely hide content first -->
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body id="top">
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="nav on-dark">
+    <div class="container nav__inner">
+      <a class="logo" href="../index.html" aria-label="Noella Bunag — home">NOELLA<span>.</span></a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+        <li><a class="nav__link" href="../index.html" data-nav-link="home">Home</a></li>
+        <li><a class="nav__link" href="../index.html#about" data-nav-link="about">About</a></li>
+        <li><a class="nav__link" href="../index.html#skills" data-nav-link="skills">Skills</a></li>
+        <li><a class="nav__link" href="../index.html#projects" data-nav-link="projects">Projects</a></li>
+        <li><a class="nav__link" href="../index.html#experience" data-nav-link="experience">Experience</a></li>
+        <li><a class="nav__link" href="../index.html#contact" data-nav-link="contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav__right">
+        <a class="btn btn--sm nav__resume" data-resume="view" href="mailto:noellabunag.25@ichat.sp.edu.sg?subject=Resume%20request%20%E2%80%94%20Noella%20Bunag"><span data-resume-label>Request Resume</span><svg class="icon icon--move-xy" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="nav__toggle-box" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu (opened by the hamburger button) -->
+  <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" role="dialog">
+    <ul class="mobile-menu__links">
+      <li><a href="../index.html" data-nav-link="home">Home<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#about" data-nav-link="about">About<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#skills" data-nav-link="skills">Skills<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#projects" data-nav-link="projects">Projects<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#experience" data-nav-link="experience">Experience<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+      <li><a href="../index.html#contact" data-nav-link="contact">Contact<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+    </ul>
+    <div class="mobile-menu__footer">
+      <a class="btn btn--outline" data-resume="view" href="mailto:noellabunag.25@ichat.sp.edu.sg?subject=Resume%20request%20%E2%80%94%20Noella%20Bunag"><span data-resume-label>Request Resume</span><svg class="icon icon--move-xy" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+      <div class="social-links">
+        <a class="social-link" href="https://github.com/noellabunag" target="_blank" rel="noopener" aria-label="GitHub profile (opens in a new tab)"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
+        <a class="social-link" href="https://www.linkedin.com/in/noellabunag" target="_blank" rel="noopener" aria-label="LinkedIn profile (opens in a new tab)"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="social-link" href="mailto:noellabunag.25@ichat.sp.edu.sg" aria-label="Email Noella"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- ============================================================
+         CASE STUDY: catch-and-go
+         Purple "placeholder" notes (class="ph") are hidden on the live site.
+         Open this page with ?draft at the end of the URL to see them.
+         Search this file for "[ADD" and "[CONFIRM" to find every one.
+         ============================================================ -->
+    <header class="cs-hero on-dark">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container">
+        <a class="back-link hero-in hero-in--fade" style="--i:0" href="../index.html#projects"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Back to Projects</a>
+        <p class="eyebrow hero-in hero-in--fade" style="--i:0">BUSINESS INTELLIGENCE · DATA STORYTELLING</p>
+        <h1 class="hero-in" style="--i:1">Catch &amp; Go: A Data Story for Choosing a Pilot Location</h1>
+        <p class="cs-hero__overview hero-in hero-in--fade" style="--i:2">A team data story built in Power BI. We analysed survey data from 200 Singapore residents to recommend where a fictional games company should pilot new content for its location-based mobile game.</p>
+        <div class="hero-in hero-in--fade" style="--i:3">
+          <h2 class="sr-only">Technologies used</h2>
+          <ul class="tag-list"><li class="tag">Microsoft Power BI</li><li class="tag">Data Visualisation</li><li class="tag">Dashboard Design</li><li class="tag">Data Storytelling</li></ul>
+          <dl class="cs-meta"><div><dt>PROJECT TYPE</dt><dd>Academic team project</dd></div><div><dt>INSTITUTION</dt><dd>Singapore Polytechnic</dd></div><div><dt>MY ROLE</dt><dd>Team member</dd></div><div><dt>FORMAT</dt><dd>Power BI data story, presented live</dd></div></dl>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <figure class="cs-cover hero-in" style="--i:4">
+        <!-- Cover image. Illustrative .svg covers can be replaced with a real project image. -->
+        <div class="cs-cover__frame"><img src="../assets/images/thumbs/catch-and-go.jpg" width="800" height="450" alt="Slide from the data story: a map of Singapore with Lakeside marked as the recommended pilot location, which performed strongly on concentration, engagement and accessibility"></div>
+        <figcaption>The recommendation slide from our data story.</figcaption>
+      </figure>
+
+      <div class="cs-layout">
+        <nav class="cs-toc" aria-label="On this page">
+          <p class="cs-toc__title">ON THIS PAGE</p>
+          <ol><li><a href="#overview">Overview</a></li><li><a href="#brief">The Brief</a></li><li><a href="#data">The Data</a></li><li><a href="#approach">Approach</a></li><li><a href="#story">The Data Story</a></li><li><a href="#recommendation">Recommendation</a></li><li><a href="#sdg">Links to the UN SDGs</a></li><li><a href="#role">Team &amp; My Role</a></li><li><a href="#learnings">Key Learnings</a></li></ol>
+        </nav>
+        <article class="cs-article">
+          <section class="cs-section" id="overview" aria-labelledby="overview-h">
+            <p class="cs-section__num">01</p>
+            <h2 id="overview-h">Overview</h2>
+            <p>This project was for my Persuasive Communication with Data Storytelling module. Instead of a dashboard for exploring data, the goal was a <em>data story</em>: a sequence of visuals that leads a decision-maker to one clear recommendation.</p><div class="stat-row"><div class="stat"><strong>200</strong><span>survey responses from Singapore residents</span></div><div class="stat"><strong>3</strong><span>criteria used to judge each location</span></div><div class="stat"><strong>1</strong><span>recommended pilot location</span></div></div>
+          </section>
+          <section class="cs-section" id="brief" aria-labelledby="brief-h">
+            <p class="cs-section__num">02</p>
+            <h2 id="brief-h">The Brief</h2>
+            <p>The scenario was a fictional one. A Singapore games company, Funtendo, runs a location-based augmented-reality mobile game called Catch &amp; Go, where players travel to real places to catch virtual creatures. The company wants to pilot a release of new creatures and needs to choose where.</p>
+<p><strong>Research question: what is the most appropriate location in Singapore to pilot the release of the new Catch &amp; Go creatures?</strong></p>
+<p>Our team had to answer this with the data provided, then present the case live to a judge acting as the client, followed by a question-and-answer session.</p>
+          </section>
+          <section class="cs-section" id="data" aria-labelledby="data-h">
+            <p class="cs-section__num">03</p>
+            <h2 id="data-h">The Data</h2>
+            <p>We worked with a survey dataset of 200 Singapore residents, supplied in a Power BI file. For each resident it recorded:</p><ul class="bullet-list"><li>Age group, gender, household income, dwelling type and household size</li><li>Top reason for playing mobile games, and hours spent gaming each week</li><li>Home location, the nearest MRT station and the distance to it</li><li>The nearest public Wi-Fi hotspot and the distance to it</li><li>Whether the resident owns a car</li></ul><div class="callout"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><p>The dataset was provided for coursework and is a small sample, so it may not represent real circumstances. The findings below describe this sample.</p></div>
+          </section>
+          <section class="cs-section" id="approach" aria-labelledby="approach-h">
+            <p class="cs-section__num">04</p>
+            <h2 id="approach-h">Approach</h2>
+            <p>Choosing the wrong location could leave the new creatures uncaught, so before recommending anywhere we set three criteria:</p><ol class="pipeline"><li class="pipeline__step"><small>CRITERION 1</small><strong>Player concentration</strong><span>Where are surveyed players already concentrated?</span></li><li class="pipeline__step"><small>CRITERION 2</small><strong>Gaming engagement</strong><span>Which locations have the most high-engagement players?</span></li><li class="pipeline__step"><small>CRITERION 3</small><strong>Accessibility</strong><span>Where are high-engagement players without cars concentrated?</span></li></ol><p>The story itself followed a narrative framework: introduction, setting, hook, a series of rising insights, an &ldquo;aha&rdquo; moment, and a recommendation. Each page carried one message, with a short written summary under the visual.</p>
+          </section>
+          <section class="cs-section" id="story" aria-labelledby="story-h">
+            <p class="cs-section__num">05</p>
+            <h2 id="story-h">The Data Story</h2>
+            <h3>Hook: what makes players come back?</h3><p>Stress relief was the top reason for playing mobile games (48 residents), followed by passing time (37). That suggested the pilot location should be convenient and easy to revisit as part of a daily routine.</p><figure class="cs-figure "><div class="cs-figure__frame"><img src="../assets/images/projects/catchgo-motivation.jpg" alt="Slide with a bar chart of residents’ top reasons for playing mobile games, led by relieving stress with 48 and passing time with 37" loading="lazy"></div><figcaption>Motivation: why residents play.</figcaption></figure><h3>Insight 1: where are the players?</h3><p>Four neighbourhoods stood out on player numbers: Hougang (11), Choa Chu Kang (10), Lakeside (9) and Punggol (9). Volume alone, though, does not show which location can sustain a pilot.</p><figure class="cs-figure "><div class="cs-figure__frame"><img src="../assets/images/projects/catchgo-player-concentration.jpg" alt="Slide with a bar chart of the top MRT areas by number of players: Hougang 11, Choa Chu Kang 10, Lakeside 9 and Punggol 9" loading="lazy"></div><figcaption>Player concentration by nearest MRT station.</figcaption></figure><h3>Insight 2: who plays the most?</h3><p>We defined high engagement as four or more hours of gaming a week. Residents aged 50 and above made up 53% of all high-engagement players in the sample.</p><figure class="cs-figure "><div class="cs-figure__frame"><img src="../assets/images/projects/catchgo-engagement-by-age.jpg" alt="Slide with a bar chart of high-engagement residents by age group: 52 aged 50 and above, 28 aged 21 to 49, and 18 aged 17 to 20" loading="lazy"></div><figcaption>High-engagement players by age group.</figcaption></figure><h3>Insight 3: where are the committed players?</h3><p>Filtering to high-engagement players changed the ranking. Lakeside moved to first with 7, ahead of Choa Chu Kang and Punggol with 5 each.</p><figure class="cs-figure "><div class="cs-figure__frame"><img src="../assets/images/projects/catchgo-high-engagement-areas.jpg" alt="Slide with a bar chart of the top MRT areas by high-engagement players: Lakeside 7, Choa Chu Kang 5, Punggol 5 and Hougang 4" loading="lazy"></div><figcaption>The same areas, counting only high-engagement players.</figcaption></figure><h3>Insight 4: who depends on public transport?</h3><p>62.5% of respondents did not own a car. Among high-engagement players without a car, Lakeside again had the largest cluster.</p><figure class="cs-figure "><div class="cs-figure__frame"><img src="../assets/images/projects/catchgo-accessibility-map.jpg" alt="Slide with a map of high-engagement residents without cars in the four shortlisted areas, and a card stating that 62.5 percent of respondents do not own a car" loading="lazy"></div><figcaption>Mapping high-engagement, car-less residents.</figcaption></figure>
+          </section>
+          <section class="cs-section" id="recommendation" aria-labelledby="recommendation-h">
+            <p class="cs-section__num">06</p>
+            <h2 id="recommendation-h">Recommendation</h2>
+            <p>No location led on every measure. Hougang had the most players overall, but Lakeside led on both engagement and accessibility, giving it the strongest overall balance. We recommended <strong>Lakeside</strong> for the first pilot, with three next steps:</p><figure class="cs-figure "><div class="cs-figure__frame"><img src="../assets/images/projects/catchgo-comparison.jpg" alt="Slide with a comparison table rating Hougang, Choa Chu Kang, Lakeside and Punggol on concentration, accessibility and engagement, with Lakeside highlighted" loading="lazy"></div><figcaption>The &ldquo;aha&rdquo; moment: comparing all four locations on all three criteria.</figcaption></figure><ul class="bullet-list"><li><strong>Launch:</strong> release the new creatures around Lakeside MRT.</li><li><strong>Measure:</strong> track participation, repeat visits, session length and accessibility feedback.</li><li><strong>Expand:</strong> move on to Choa Chu Kang if the pilot succeeds.</li></ul>
+          </section>
+          <section class="cs-section" id="sdg" aria-labelledby="sdg-h">
+            <p class="cs-section__num">07</p>
+            <h2 id="sdg-h">Links to the UN SDGs</h2>
+            <ul class="bullet-list"><li><strong>SDG 3, Good Health and Well-being:</strong> stress relief was the top reason for gaming, which points to possible benefits for recreation and well-being.</li><li><strong>SDG 11, Sustainable Cities and Communities:</strong> a pilot centred on an MRT station supports inclusive participation, especially for residents without cars.</li></ul>
+          </section>
+          <section class="cs-section" id="role" aria-labelledby="role-h">
+            <p class="cs-section__num">08</p>
+            <h2 id="role-h">Team &amp; My Role</h2>
+            <p>This was a team project, and every member created visuals for the story and presented part of it. The analysis and recommendation above reflect the work of the whole team.</p><div class="ph" role="note"><strong>[CONFIRM INDIVIDUAL CONTRIBUTION]</strong> Say which visuals you built and which part of the story you presented.</div>
+          </section>
+          <section class="cs-section" id="learnings" aria-labelledby="learnings-h">
+            <p class="cs-section__num">09</p>
+            <h2 id="learnings-h">Key Learnings</h2>
+            <ul class="bullet-list"><li><strong>A story needs one message per page.</strong> Each visual had to earn its place by moving the argument forward.</li><li><strong>Filters change the answer.</strong> The location with the most players was not the one with the most committed players.</li><li><strong>Criteria come before conclusions.</strong> Agreeing on how to judge a location first made the final recommendation easier to defend.</li></ul><div class="ph" role="note"><strong>[REVIEW KEY LEARNINGS]</strong> These are drafted for you. Rewrite them in your own words so they reflect what you really took away.</div>
+          </section>
+        </article>
+      </div>
+    </div>
+
+    <aside class="cs-next" aria-label="More projects">
+      <div class="container cs-next__inner">
+        <div>
+          <p class="cs-next__label">NEXT CASE STUDY</p>
+          <a class="cs-next__title" href="customer-segmentation.html">Customer Segmentation &amp; Energy Consumption Forecasting<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+        <a class="btn btn--outline" href="../index.html#projects"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Back to Portfolio</a>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer on-dark">
+    <div class="container">
+      <div class="footer__top">
+        <div>
+          <a class="logo" href="../index.html" aria-label="Noella Bunag — home">NOELLA<span>.</span></a>
+          <p class="footer__tagline">Learning, building, and growing through data.</p>
+        </div>
+        <ul class="footer__links">
+          <li><a href="https://www.linkedin.com/in/noellabunag" target="_blank" rel="noopener">LinkedIn<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg><span class="sr-only">(opens in a new tab)</span></a></li>
+          <li><a href="https://github.com/noellabunag" target="_blank" rel="noopener">GitHub<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg><span class="sr-only">(opens in a new tab)</span></a></li>
+          <li><a href="mailto:noellabunag.25@ichat.sp.edu.sg">Email</a></li>
+          <li><a href="#top" data-to-top>Back to top<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></a></li>
+        </ul>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; <span data-year>2026</span> Noella Bunag. All rights reserved.</p>
+        <p>Singapore</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" type="button" data-to-top aria-label="Back to top"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></button>
+  <div class="draft-banner" role="status">Draft mode — purple boxes are notes only you can see</div>
+
+  <script src="../js/main.js" defer></script>
+</body>
+</html>

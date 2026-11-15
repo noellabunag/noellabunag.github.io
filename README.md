@@ -19,7 +19,7 @@ noellabunag-portfolio/
 ├── projects/                   One case study page per featured project
 │   ├── library-data-warehouse.html
 │   ├── graduate-employment-analysis.html
-│   ├── education-dashboard.html
+│   ├── catch-and-go.html
 │   ├── customer-segmentation.html
 │   └── salary-analysis.html
 └── assets/
@@ -156,11 +156,11 @@ In `index.html`, each hackathon card has a commented-out `<figure class="hack-ca
 
 The homepage thumbnails and case study cover images are **illustrative graphics, not real project results**. (The charts, diagrams and tables *inside* the library, graduate employment, education and salary case studies are real, taken from your project files.) To swap one for a real screenshot:
 
-1. Save your image in `assets/images/thumbs/`, for example `education-dashboard.png`. A 16:9 shape (such as 1600 × 900) fits best.
+1. Save your image in `assets/images/thumbs/`, for example `customer-segmentation.png`. A 16:9 shape (such as 1600 × 900) fits best.
 2. In `index.html`, find the card and change the image path:
 
    ```html
-   <img src="assets/images/thumbs/education-dashboard.png" ... alt="Power BI dashboard comparing institutions on education quality indicators">
+   <img src="assets/images/thumbs/customer-segmentation.png" ... alt="Scatter plot of the five customer segments">
    ```
 
 3. Make the same change near the top of the matching file in `projects/` (the path there starts with `../assets/`), and update the caption below it.
