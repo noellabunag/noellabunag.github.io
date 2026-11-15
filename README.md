@@ -136,15 +136,13 @@ Remove the `<!--` and `-->` and replace the placeholder with the real repository
 3. Set `data-category` to one or more of: `data-analytics`, `data-engineering`, `machine-learning`, `business-intelligence` (separate several with a space).
 4. Copy an existing file in `projects/`, rename it, and edit the content. Update the "Next case study" link at the bottom of the previous page so the chain still loops.
 
-### Adding a profile photo (optional)
+### Changing your profile photo
 
-In `index.html`, find `<div class="monogram" aria-hidden="true">NB</div>` and replace it with:
+Your photo is `assets/images/profile.jpg`. To change it, save a new **square** photo with the same file name in the same folder. No HTML changes needed.
 
-```html
-<img class="monogram" src="assets/images/profile.jpg" alt="Portrait of Noella Bunag" width="58" height="58" style="object-fit:cover">
-```
+### Changing the leadership photos
 
-Save a square photo as `assets/images/profile.jpg`.
+The three photos under "Leadership & Beyond" are in `assets/images/life/`. In `index.html`, search for `photo-row` to edit their captions and `alt` text, or to swap the images.
 
 ### Adding hackathon photos
 
@@ -156,7 +154,7 @@ In `index.html`, each hackathon card has a commented-out `<figure class="hack-ca
 
 ### Thumbnails (homepage cards and case study covers)
 
-The current thumbnails are **illustrative graphics, not real project results**. To swap one for a real screenshot:
+The homepage thumbnails and case study cover images are **illustrative graphics, not real project results**. (The charts, diagrams and tables *inside* the library, graduate employment, education and salary case studies are real, taken from your project files.) To swap one for a real screenshot:
 
 1. Save your image in `assets/images/thumbs/`, for example `education-dashboard.png`. A 16:9 shape (such as 1600 × 900) fits best.
 2. In `index.html`, find the card and change the image path:

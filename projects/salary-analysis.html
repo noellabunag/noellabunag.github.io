@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Salary Variation Analysis Across Job Roles &amp; Experience Levels | Noella Bunag</title>
-  <meta name="description" content="Case study: cleaning and analysing around 150,000 job postings in Python to compare salary patterns across roles and experience levels.">
+  <meta name="description" content="Case study: cleaning and analysing more than 120,000 job postings in Python to compare salary patterns across roles and experience levels.">
   <meta name="author" content="Noella Bunag">
   <meta name="theme-color" content="#0B1220">
   <link rel="canonical" href="https://noellabunag.github.io/projects/salary-analysis.html">
@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Noella Bunag — Portfolio">
   <meta property="og:title" content="Salary Variation Analysis Across Job Roles &amp; Experience Levels | Noella Bunag">
-  <meta property="og:description" content="Case study: cleaning and analysing around 150,000 job postings in Python to compare salary patterns across roles and experience levels.">
+  <meta property="og:description" content="Case study: cleaning and analysing more than 120,000 job postings in Python to compare salary patterns across roles and experience levels.">
   <meta property="og:url" content="https://noellabunag.github.io/projects/salary-analysis.html">
   <meta property="og:image" content="https://noellabunag.github.io/assets/images/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -96,7 +96,7 @@
         <div class="hero-in hero-in--fade" style="--i:3">
           <h2 class="sr-only">Technologies used</h2>
           <ul class="tag-list"><li class="tag">Python</li><li class="tag">Pandas</li><li class="tag">Matplotlib</li><li class="tag">Data Cleaning</li></ul>
-          <dl class="cs-meta"><div><dt>PROJECT TYPE</dt><dd>Academic project</dd></div><div><dt>INSTITUTION</dt><dd>Singapore Polytechnic</dd></div><div><dt>SCALE</dt><dd>~150,000 job postings</dd></div><div><dt>FOCUS</dt><dd>Data cleaning &amp; exploratory analysis</dd></div></dl>
+          <dl class="cs-meta"><div><dt>PROJECT TYPE</dt><dd>Individual academic project</dd></div><div><dt>INSTITUTION</dt><dd>Singapore Polytechnic</dd></div><div><dt>SCALE</dt><dd>123,849 job postings</dd></div><div><dt>FOCUS</dt><dd>Data cleaning &amp; exploratory analysis</dd></div></dl>
         </div>
       </div>
     </header>
@@ -117,51 +117,68 @@
           <section class="cs-section" id="objective" aria-labelledby="objective-h">
             <p class="cs-section__num">01</p>
             <h2 id="objective-h">Objective</h2>
-            <p>The aim of this project was to understand how advertised salaries vary across job roles and experience levels, using a large collection of job postings.</p><div class="stat-row"><div class="stat"><strong>~150,000</strong><span>job postings analysed</span></div><div class="stat"><strong>5</strong><span>datasets combined</span></div><div class="stat"><strong>~8,000</strong><span>duplicate records removed</span></div></div>
+            <p><strong>Research question: how do salaries vary across job roles and experience levels in a job postings dataset?</strong></p>
+<p>This was an individual project for my Programming for Data Analytics module.</p><div class="stat-row"><div class="stat"><strong>123,849</strong><span>job postings combined from 5 files</span></div><div class="stat"><strong>27,192</strong><span>postings with usable salary data after cleaning</span></div><div class="stat"><strong>6</strong><span>Matplotlib chart types</span></div></div>
           </section>
           <section class="cs-section" id="dataset" aria-labelledby="dataset-h">
             <p class="cs-section__num">02</p>
             <h2 id="dataset-h">Dataset</h2>
-            <p>The analysis combined five datasets of job postings into a single collection of approximately 150,000 records. The data is a historical collection of postings, not a live feed of the job market.</p><div class="ph" role="note"><strong>[ADD DATA SOURCE DETAILS]</strong> Name the five datasets, where they came from, and the period they cover.</div>
+            <p>The dataset was supplied in five separate files, each holding different details about the same 123,849 job postings. It is a historical collection of postings, not a live feed of the job market, and salaries are in dollars.</p><div class="ph" role="note"><strong>[ADD DATA SOURCE DETAILS]</strong> Say where the dataset came from and which country and period it covers.</div>
           </section>
           <section class="cs-section" id="cleaning" aria-labelledby="cleaning-h">
             <p class="cs-section__num">03</p>
             <h2 id="cleaning-h">Data Cleaning</h2>
-            <p>A large part of this project was preparing the data:</p><ul class="bullet-list"><li>Combined five separate datasets into one.</li><li>Removed approximately 8,000 duplicate records.</li><li>Standardised salary information so that postings could be compared on the same basis.</li><li>Standardised experience-level labels into consistent categories.</li></ul><div class="ph" role="note"><strong>[ADD VERIFIED CODE EXAMPLE]</strong> Add a short, real excerpt of your Pandas cleaning code. Save the image in <code>assets/images/projects/</code> and replace this box with: <code>&lt;figure class="cs-figure"&gt;&lt;div class="cs-figure__frame"&gt;&lt;img src="../assets/images/projects/FILE.png" alt="DESCRIBE THE IMAGE" loading="lazy"&gt;&lt;/div&gt;&lt;figcaption&gt;CAPTION&lt;/figcaption&gt;&lt;/figure&gt;</code></div>
+            <p>A large part of this project was preparing the data:</p><ul class="bullet-list"><li>Checked each file for duplicate job IDs, then merged all five with outer joins on the job ID.</li><li>Kept the columns needed for the question: job title, location, pay period, salary fields and experience level.</li><li>Standardised many different experience-level labels into three groups, which left 93,218 postings with a valid level.</li><li>Converted every salary to an annual figure, whatever pay period it was advertised in.</li><li>Removed postings without salary data and unrealistic outliers (below $10,000 or above $500,000 a year), leaving 27,192 postings.</li></ul><figure class="cs-figure"><pre class="cs-code" tabindex="0"><code>def clean_exp(x):
+    x = str(x).lower()
+    if &quot;entry&quot; in x or &quot;junior&quot; in x or &quot;intern&quot; in x:
+        return &quot;Entry Level&quot;
+    if &quot;mid&quot; in x or &quot;associate&quot; in x:
+        return &quot;Mid Level&quot;
+    if &quot;senior&quot; in x or &quot;lead&quot; in x or &quot;director&quot; in x:
+        return &quot;Senior Level&quot;
+    return np.nan
+
+df[&quot;exp_level&quot;] = df[&quot;formatted_experience_level&quot;].apply(clean_exp)</code></pre><figcaption>Standardising experience levels into three groups.</figcaption></figure>
           </section>
           <section class="cs-section" id="features" aria-labelledby="features-h">
             <p class="cs-section__num">04</p>
             <h2 id="features-h">Feature Engineering</h2>
-            <p>Standardising the salary and experience-level fields produced consistent variables that could be grouped and compared across roles.</p><div class="ph" role="note"><strong>[ADD VERIFIED DETAILS]</strong> Describe any new columns you created (for example a unified salary figure or grouped job-role categories).</div>
+            <p>Salaries were advertised hourly, weekly, monthly or yearly, so they had to be put on the same basis before any comparison:</p><figure class="cs-figure"><pre class="cs-code" tabindex="0"><code>def convert_to_annual(row):
+    pay = str(row[&quot;pay_period&quot;]).upper()
+    sal = row[&quot;avg_salary&quot;]
+    if pd.isna(sal):
+        return np.nan
+    if &quot;HOUR&quot; in pay:  return sal * 2080
+    if &quot;WEEK&quot; in pay:  return sal * 52
+    if &quot;MONTH&quot; in pay: return sal * 12
+    return sal   # yearly
+
+df[&quot;annual_salary&quot;] = df.apply(convert_to_annual, axis=1)</code></pre><figcaption>Converting every salary to an annual figure.</figcaption></figure><p>I also used a lambda function to group salaries into Low, Medium and High bands (up to $50,000, up to $100,000, and above).</p>
           </section>
           <section class="cs-section" id="eda" aria-labelledby="eda-h">
             <p class="cs-section__num">05</p>
             <h2 id="eda-h">Exploratory Analysis</h2>
-            <p>With a clean dataset, the analysis explored how salary ranges differ between roles and between experience levels, looking at the spread of salaries as well as typical values.</p>
+            <p>With a clean dataset, I used grouping and summary statistics to compare salaries by experience level and job title. Across all cleaned postings, the median annual salary was $82,500 and the mean was about $94,800, a gap that reflects a small number of very high salaries.</p>
           </section>
           <section class="cs-section" id="visuals" aria-labelledby="visuals-h">
             <p class="cs-section__num">06</p>
             <h2 id="visuals-h">Visualisations</h2>
-            <p>Multiple statistical visualisations were developed with Matplotlib to show salary distributions and compare groups.</p><div class="ph" role="note"><strong>[ADD ACTUAL PROJECT SCREENSHOT]</strong> Add 2&ndash;3 real charts, each with a one-line caption. Save the image in <code>assets/images/projects/</code> and replace this box with: <code>&lt;figure class="cs-figure"&gt;&lt;div class="cs-figure__frame"&gt;&lt;img src="../assets/images/projects/FILE.png" alt="DESCRIBE THE IMAGE" loading="lazy"&gt;&lt;/div&gt;&lt;figcaption&gt;CAPTION&lt;/figcaption&gt;&lt;/figure&gt;</code></div>
+            <p>I created six charts with Matplotlib: a histogram, bar chart, box plot, pie chart, scatter plot and line chart. Three are shown here.</p><figure class="cs-figure " style="max-width:600px"><div class="cs-figure__frame"><img src="../assets/images/projects/salary-by-experience.png" alt="Bar chart of average annual salary rising from entry level to mid level to senior level" loading="lazy"></div><figcaption>Average annual salary by experience level.</figcaption></figure><div class="fig-grid"><figure class="cs-figure "><div class="cs-figure__frame"><img src="../assets/images/projects/salary-boxplot.png" alt="Box plot of annual salary by experience level, showing higher medians and wider spread at senior level" loading="lazy"></div><figcaption>Salary spread by experience level.</figcaption></figure><figure class="cs-figure "><div class="cs-figure__frame"><img src="../assets/images/projects/salary-distribution.png" alt="Histogram of annual salaries, concentrated at the lower end with a long tail of high salaries" loading="lazy"></div><figcaption>Distribution of annual salaries.</figcaption></figure></div>
           </section>
           <section class="cs-section" id="findings" aria-labelledby="findings-h">
             <p class="cs-section__num">07</p>
             <h2 id="findings-h">Findings</h2>
-            <p>The analysis found notable differences between senior and entry-level salary ranges.</p><div class="ph" role="note"><strong>[ADD VERIFIED FINDINGS]</strong> Add the specific figures or comparisons from your report (for example median salaries by level).</div>
+            <div class="stat-row"><div class="stat"><strong>$64,696</strong><span>average annual salary, entry level</span></div><div class="stat"><strong>$106,132</strong><span>average annual salary, mid level</span></div><div class="stat"><strong>$170,657</strong><span>average annual salary, senior level</span></div></div><ul class="bullet-list"><li><strong>Experience level was the clearest driver of salary.</strong> Average advertised salary rose at each step from entry to mid to senior level.</li><li><strong>Senior roles had the widest spread</strong> of salaries, while entry-level salaries were more tightly clustered.</li><li><strong>The distribution is right-skewed:</strong> most postings sit at the lower end, with a long tail of high salaries.</li><li><strong>Mid-level roles made up most postings</strong> in the cleaned data (60.8%), followed by entry level (34.6%) and senior level (4.6%).</li></ul>
           </section>
           <section class="cs-section" id="limitations" aria-labelledby="limitations-h">
             <p class="cs-section__num">08</p>
             <h2 id="limitations-h">Limitations</h2>
-            <ul class="bullet-list"><li>The dataset is a historical collection of job postings, so it does not describe the current job market.</li><li>Postings show advertised salaries, which may differ from what people are actually paid.</li><li>Results depend on how salary and experience-level information was standardised across the five sources.</li></ul>
-          </section>
-          <section class="cs-section ph" id="role" aria-labelledby="role-h">
-            <h2 id="role-h">My Role (draft only)</h2>
-            <div  role="note"><strong>[CONFIRM INDIVIDUAL CONTRIBUTION]</strong> State whether this was an individual or group project and which parts were yours. This section is hidden on the live site until you replace this note with real text.</div>
+            <ul class="bullet-list"><li>Only about one in five postings (27,192 of 123,849) had usable salary data, so the salary findings describe that subset.</li><li>The dataset is a historical collection of postings, so it does not describe the current job market.</li><li>Postings show advertised salaries, which may differ from what people are actually paid.</li><li>Experience levels were assigned by keyword matching, so some postings may be grouped imperfectly.</li></ul>
           </section>
           <section class="cs-section" id="lessons" aria-labelledby="lessons-h">
             <p class="cs-section__num">09</p>
             <h2 id="lessons-h">Lessons Learned</h2>
-            <ul class="bullet-list"><li><strong>Large datasets hide small problems.</strong> Duplicates and inconsistent labels only became visible once the five sources were combined.</li><li><strong>Standardise before comparing.</strong> Salary figures meant little until they were on the same basis.</li><li><strong>State the limits.</strong> Being clear about what the data cannot show is part of the analysis.</li></ul><div class="ph" role="note"><strong>[REVIEW KEY LEARNINGS]</strong> These are drafted for you. Rewrite them in your own words so they reflect what you really took away.</div>
+            <ul class="bullet-list"><li><strong>Large datasets hide small problems.</strong> Inconsistent labels and pay periods only became visible once the five files were combined.</li><li><strong>Standardise before comparing.</strong> Salary figures meant little until they were on the same annual basis.</li><li><strong>State the limits.</strong> Being clear about how much data survived cleaning is part of the analysis.</li></ul><div class="ph" role="note"><strong>[REVIEW KEY LEARNINGS]</strong> These are drafted for you. Rewrite them in your own words so they reflect what you really took away.</div>
           </section>
         </article>
       </div>
